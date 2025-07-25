@@ -56,7 +56,7 @@ public class CategoryController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping
     @ApiOperation(value = "删除分类")
     public Result deleteCategory(@RequestParam("id") Long id) {
         log.info("删除分类: id={}", id);
@@ -64,4 +64,27 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return Result.success();
     }
+
+    /**
+     * 修改分类状态
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation(value = "修改分类状态")
+    public Result updateStatus(@PathVariable("status") Integer status, @RequestParam("id") Long id) {
+        log.info("修改分类状态: id={}, status={}", id, status);
+        categoryService.startorstop(status, id);
+        return Result.success();
+    }
+
+    @PostMapping
+    @ApiOperation(value = "新增分类")
+    public Result saveCategory(@RequestBody CategoryDTO categoryDTO) {
+        log.info("新增分类: {}", categoryDTO);
+        categoryService.insert(categoryDTO);
+        return Result.success();
+    }
+
 }

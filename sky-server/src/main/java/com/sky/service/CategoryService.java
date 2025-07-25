@@ -14,4 +14,9 @@ public interface CategoryService {
     Object listByType(Integer type);
 
     void deleteCategory(Long id);
+
+
+    void startorstop(Integer status, Long id);
+
+    void insert(CategoryDTO categoryDTO);
 }
