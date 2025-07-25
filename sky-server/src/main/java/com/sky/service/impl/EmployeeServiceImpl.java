@@ -100,4 +100,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     }
 
+    @Override
+    public void StartorStop(Integer status, Long id) {
+        Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 根据ID查询员工信息
+     * @param id
+     * @return
+     */
+    @Override
+    public Employee getById(Long id) {
+
+        Employee employee = employeeMapper.getById(id);
+        if (employee == null) {
+            throw new AccountNotFoundException(MessageConstant.ACCOUNT_NOT_FOUND);
+        }
+        return employee;
+    }
+
+    @Override
+    public void update(EmployeeDTO employeeDto) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDto, employee);
+        employee.setUpdateTime(LocalDateTime.now());
+
+        employee.setUpdateUser(BaseContext.getCurrentId()); //默认更新人ID为1
+
+        employeeMapper.update(employee);
+        return;
+    }
+
 }

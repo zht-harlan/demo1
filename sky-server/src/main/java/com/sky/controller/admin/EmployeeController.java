@@ -87,4 +87,48 @@ public class EmployeeController {
     PageResult pageResult=employeeService.pageQuery(employeePageQueryDTO);
     return Result.success(pageResult);
     }
+
+    /**
+     *
+     * @param status
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("修改员工状态")
+    public Result StartorStop( @PathVariable Integer status,Long id) {
+        log.info("修改员工状态：{}", status);
+        employeeService.StartorStop(status,id);
+        return Result.success();
+    }
+
+    /** * 根据ID查询员工信息
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据ID查询员工信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        log.info("根据ID查询员工信息：{}", id);
+        Employee employee = employeeService.getById(id);
+        return Result.success(employee);
+    }
+
+
+
+    /**
+     * 修改员工信息
+     *
+     * @param employeeDto
+     * @return
+     */
+
+    @PutMapping
+    @ApiOperation("修改员工信息")
+    public Result update(@RequestBody EmployeeDTO employeeDto) {
+        log.info("修改员工信息：{}", employeeDto);
+        employeeService.update(employeeDto);
+        return Result.success();
+    }
 }
