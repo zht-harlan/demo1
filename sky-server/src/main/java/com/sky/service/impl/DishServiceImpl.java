@@ -22,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -118,6 +119,16 @@ public class DishServiceImpl implements DishService {
             });
         }
         dishFlavorMapper.insertBatch(flavors);
+    }
+
+    @Override
+    public List<Dish> list(Long id) {
+        Dish dish = Dish.builder()
+                .status(StatusConstant.ENABLE)
+                .categoryId(id)
+                .build();
+        List<Dish> dishes=dishMapper.list(dish);
+        return dishes;
     }
 }
 
