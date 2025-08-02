@@ -34,10 +34,12 @@ public class CommonController {
           String OrginalName =file .getOriginalFilename();
             log.info("上传的文件名：{}", OrginalName);
 
-            String filename=OrginalName.substring(0, OrginalName.lastIndexOf("."));
+            String filename=OrginalName.substring(OrginalName.lastIndexOf("."));
           String s = UUID.randomUUID().toString() + filename;
           aliOssUtil.upload(file.getBytes(), s);
-            return Result.success(s);
+          // 返回完整图片 URL
+          String url = "https://sky-itcastzht.oss-cn-hangzhou.aliyuncs.com/" + s;
+          return Result.success(url);
       }catch (Exception e) {
           log.error("文件上传失败：", e);
           return Result.error("文件上传失败，请稍后重试");

@@ -3,9 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.SetmealDishMapper">
     <insert id="insertBatch">
-        INSERT INTO setmeal_dish (setmeal_id, dish_id, copies) values
+        INSERT INTO setmeal_dish (setmeal_id, dish_id, copies,name,price) values
         <foreach collection="list" item="setmealDish" separator=",">
-            (#{setmealDish.setmealId}, #{setmealDish.dishId}, #{setmealDish.copies})
+            (#{setmealDish.setmealId}, #{setmealDish.dishId}, #{setmealDish.copies},#{setmealDish.name},#{setmealDish.price})
         </foreach>
 
     </insert>

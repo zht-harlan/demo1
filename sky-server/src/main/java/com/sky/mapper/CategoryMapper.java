@@ -16,7 +16,6 @@ public interface CategoryMapper {
 
     void update(Category category);
 
-    @Select("SELECT * FROM category WHERE type = #{type}")
     List<Category> listByType(Integer type);
 
     @Select("sELECT COUNT(*) FROM category WHERE id = #{id}")

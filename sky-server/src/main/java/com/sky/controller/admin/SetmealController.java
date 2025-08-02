@@ -43,8 +43,8 @@ public class SetmealController {
 
     @PostMapping("/status/{status}")
     @ApiOperation("起售/停售套餐")
-    public Result status(@PathVariable Integer status, @RequestParam List<Long> ids) {
-        setmealService.status(status, ids);
+    public Result status(@PathVariable Integer status, @RequestParam Long id) {
+        setmealService.status(status, id);
         return Result.success();
     }
 
@@ -61,5 +61,11 @@ public class SetmealController {
         return Result.success();
     }
 
+    @PostMapping
+    @ApiOperation("新增套餐")
+    public Result save(@RequestBody SetmealDTO setmealDTO) {
+        setmealService.save(setmealDTO);
+        return Result.success();
+    }
 
 }
