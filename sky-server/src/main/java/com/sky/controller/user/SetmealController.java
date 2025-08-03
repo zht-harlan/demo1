@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.cache.annotation.Cacheable;
 import java.util.List;
 
 @RestController("userSetmealController")
@@ -27,6 +28,7 @@ public class SetmealController {
      * @param categoryId
      * @return
      */
+    @Cacheable(cacheNames="setmeal", key="#categoryId")
     @GetMapping("/list")
     @ApiOperation("根据分类id查询套餐")
     public Result<List<Setmeal>> list(Long categoryId) {
