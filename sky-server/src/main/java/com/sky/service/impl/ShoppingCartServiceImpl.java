@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 
@@ -60,6 +61,40 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             shoppingCart.setNumber(1);
             shoppingCart.setCreateTime(LocalDateTime.now());
             shoppingCartMapper.insert(shoppingCart);
+        }
+    }
+
+    @Override
+    public List<ShoppingCart> showShoppingCart() {
+        Long userId= BaseContext.getCurrentId();
+        ShoppingCart shoppingCart =ShoppingCart.builder()
+                .userId(userId)
+                .build();
+        List<ShoppingCart> shoppingCartList = shoppingCartMapper.list(shoppingCart);
+        return shoppingCartList;
+    }
+
+    @Override
+    public void clean(Long userId) {
+        shoppingCartMapper.deletByUserId(userId);
+        return;
+    }
+
+    @Override
+    public void subShoppingCart(ShoppingCartDTO shoppingCartDTO) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        BeanUtils.copyProperties(shoppingCartDTO, shoppingCart);
+        shoppingCart.setUserId(BaseContext.getCurrentId());
+        List<ShoppingCart> list = shoppingCartMapper.list(shoppingCart);
+        shoppingCart= list.get(0);
+        Integer number = shoppingCart.getNumber();
+        if(number==1)
+        {
+            shoppingCartMapper.deletById(shoppingCart.getId());
+        }
+        else {
+            shoppingCart.setNumber(number - 1);
+            shoppingCartMapper.updateById(shoppingCart);
         }
     }
 }
