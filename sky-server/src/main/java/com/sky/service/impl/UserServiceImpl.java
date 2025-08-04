@@ -38,9 +38,11 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user=userMapper.getbyOpenid(openid);
         if(user==null) {
-            user = new User();
-            user.setOpenid(openid);
-            user.setCreateTime(LocalDateTime.now());
+            user=User.builder()
+                    .openid(openid)
+                    .createTime(LocalDateTime.now())
+                    .build();
+
             userMapper.insert(user); // 假设有update方法
         }
         return user;

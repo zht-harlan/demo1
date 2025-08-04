@@ -16,7 +16,7 @@ import org.springframework.cache.annotation.Cacheable;
 import java.util.List;
 
 @RestController("userSetmealController")
-@RequestMapping("user/setmeal")
+@RequestMapping("/user/setmeal")
 @Api(tags = "C端-套餐浏览接口")
 public class SetmealController {
     @Autowired

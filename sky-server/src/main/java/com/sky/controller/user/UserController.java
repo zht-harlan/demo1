@@ -38,8 +38,15 @@ public class UserController {
         // 这里可以添加实际的业务逻辑代码，比如验证用户名和密码
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
-        String token=JwtUtil.createJWT(jwtProperties.getUserTokenName(),jwtProperties.getAdminTtl(),claims);
+        String token=JwtUtil.createJWT(jwtProperties.getUserSecretKey(), jwtProperties.getUserTtl(), claims);
+
+        Long userId = user.getId();
+
+
+
         // 假设登录成功，返回一个成功的结果
+        log.info("用户登录成功，生成的token: {}", token);
+        log.info("用户登录成功，用户信息: {}", user);
         UserLoginVO userLoginVO = new UserLoginVO();
         userLoginVO=UserLoginVO.builder()
                 .id(user.getId())
