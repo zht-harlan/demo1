@@ -73,4 +73,13 @@ public class OrderController {
         return Result.success();
     }
 
+    @GetMapping("/reminder/{id}")
+    @ApiOperation("催单")
+    public Result reminder(@PathVariable Long id) {
+        // 这里可以添加催单的逻辑
+        log.info("催单请求，订单ID: {}", id);
+        // 假设催单成功
+        orderService.reminder(id);
+        return Result.success("催单成功");
+    }
 }
