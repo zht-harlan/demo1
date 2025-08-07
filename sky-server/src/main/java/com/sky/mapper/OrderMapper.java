@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
@@ -8,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface OrderMapper {
@@ -38,4 +40,15 @@ public interface OrderMapper {
 
     @Select("SELECT * FROM orders where status =#{pendingPayment} and order_time<#{ordertime}")
     List<Orders> getstatusAndTime(Integer pendingPayment, LocalDateTime ordertime);
+
+    @Select("SELECT sum(amount) FROM orders where status =5 and order_time<#{endTime} and order_time>#{startTime}")
+    Double turnoverStatistics(LocalDateTime startTime, LocalDateTime endTime);
+
+    Integer countByMap(Map map);
+
+    Integer userStatistics(Map map);
+
+    Double orderStatistics(Map map);
+
+    List<GoodsSalesDTO> topStatistics(Map map);
 }

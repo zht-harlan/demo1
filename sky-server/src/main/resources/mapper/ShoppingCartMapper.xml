@@ -27,7 +27,7 @@
                 AND dish_id = #{dishId}
             </if>
             <if test="dishFlavor != null">
-                AND dishFlavor = #{dishFlavor}
+                AND dish_flavor = #{dishFlavor}
             </if>
 
         </where>

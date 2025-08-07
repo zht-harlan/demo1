@@ -11,6 +11,7 @@ import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface DishMapper {
@@ -25,7 +26,7 @@ public interface DishMapper {
     @Delete("DELETE FROM dish WHERE id = #{id}")
     void deleteByDishId(Long id);
 
-
+    Integer countByMap(Map map);
     @AutoFill(value =OperationType.UPDATE)
     void update(Dish dish);
 
